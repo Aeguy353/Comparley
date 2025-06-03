@@ -73,11 +73,11 @@ app.get("/api/cj-search", async (req, res) => {
       link: link.clickUrl,
       store: link.advertiserName
     }));
+console.error("CJ API error", e);
+res.status(500).json({ error: "CJ search 
+failed", details: e.message || 
+e.toString() });
 
-    res.json(items);
-  } catch (e) {
-    console.error("CJ API error", e);
-    res.status(500).json({ error: "CJ search failed" });
   }
 });
 
