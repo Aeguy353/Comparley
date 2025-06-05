@@ -22,6 +22,7 @@ async function getEbayToken() {
     },
     body: "grant_type=client_credentials&scope=https://api.ebay.com/oauth/api_scope"
   });
+
   const data = await res.json();
   ebayAccessToken = data.access_token;
 }
@@ -73,11 +74,10 @@ app.get("/api/cj-search", async (req, res) => {
       link: link.clickUrl,
       store: link.advertiserName
     }));
-console.error("CJ API error", e);
-res.status(500).json({ error: "CJ search 
-failed", details: e.message || 
-e.toString() });
-
+    res.json(items);
+  } catch (e) {
+    console.error("CJ API error", e);
+    res.status(500).json({ error: "CJ search failed", details: e.message || e.toString() });
   }
 });
 
