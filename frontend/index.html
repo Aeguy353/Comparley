@@ -1,20 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Comparley Search</title>
+  <title>Comparley</title>
 </head>
 <body>
-  <h1>Comparley Product Search</h1>
-  <input type="text" id="query" placeholder="Search term..." />
-  <button onclick="search()">Search CJ</button>
-  <pre id="results"></pre>
-  <script>
-    async function search() {
-      const query = document.getElementById('query').value;
-      const res = await fetch('/api/cj-search?q=' + encodeURIComponent(query));
-      const data = await res.json();
-      document.getElementById('results').textContent = JSON.stringify(data, null, 2);
-    }
-  </script>
+  <h1>Welcome to Comparley</h1>
+  <p>This is the frontend placeholder. Your React/Vue app would go here.</p>
 </body>
 </html>

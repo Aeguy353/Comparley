@@ -1,6 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const fetch = require("node-fetch");
+import express from "express";
+import cors from "cors";
+import fetch from "node-fetch";
 
 const app = express();
 app.use(cors());
@@ -19,7 +19,7 @@ async function getEbayToken() {
     headers: {
       "Authorization":
         "Basic " + Buffer.from(`${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`).toString("base64"),
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     body: "grant_type=client_credentials&scope=https://api.ebay.com/oauth/api_scope"
   });
