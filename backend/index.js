@@ -17,7 +17,8 @@ async function getEbayToken() {
   const res = await fetch("https://api.ebay.com/identity/v1/oauth2/token", {
     method: "POST",
     headers: {
-      "Authorization": "Basic " + Buffer.from(`${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`).toString("base64"),
+      "Authorization":
+        "Basic " + Buffer.from(`${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`).toString("base64"),
       "Content-Type": "application/x-www-form-urlencoded"
     },
     body: "grant_type=client_credentials&scope=https://api.ebay.com/oauth/api_scope"
@@ -56,14 +57,14 @@ app.get("/api/cj-search", async (req, res) => {
   const query = req.query.q;
   const url = `https://linksearch.api.cj.com/v2/link-search?website-id=${CJ_WEBSITE_ID}&advertiser-ids=joined&keywords=${encodeURIComponent(query)}`;
 
-  try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: CJ_AUTHORIZATION,
-        Accept: "application/json"
-      }
-    });
+  const response = await fetch(url, {
+    headers: {
+      Authorization: CJ_AUTHORIZATION,
+      Accept: "application/json"
+    }
+  });
 
+  try {
     const data = await response.json();
     const items = (data.links || []).slice(0, 6).map((link) => ({
       title: link.linkText,
@@ -77,12 +78,12 @@ app.get("/api/cj-search", async (req, res) => {
     res.json(items);
   } catch (e) {
     console.error("CJ API error", e);
-    res.status(500).json({ error: "CJ search failed", details: e.message || e.toString() });
+    res.json([]);
   }
 });
 
 app.get("/", (req, res) => {
-  res.send("Comparley backend (CJ + eBay) is running ✅");
+  res.send("Comparley API is running ✅");
 });
 
 const PORT = process.env.PORT || 3000;
